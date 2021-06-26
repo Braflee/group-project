@@ -5,6 +5,7 @@ class NewComp extends React.Component {
         return (
             <div>
                 <h1>New Component</h1>
+                <p>helloooo</p>
             </div>
         )
     }
