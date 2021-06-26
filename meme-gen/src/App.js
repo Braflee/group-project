@@ -1,12 +1,12 @@
 import React from 'react'
 import Header from './components/Header'
-import Form from './components/Form'
+import States from './components/States'
 
 function App() {
     return(
         <div>
             <Header />
-            <Form />
+            <States />
         </div>
     )
 }
