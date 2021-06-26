@@ -6,6 +6,7 @@ export default function Comp1() {
       <h1>Foo Bar</h1>
       <p>testing....</p>
       <p>More testing</p>
+      <p>done testing</p>
     </div>
   );
 }
