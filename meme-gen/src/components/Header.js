@@ -3,7 +3,7 @@ import React from 'react'
 function Header() {
     return(
         <div>
-            <h1>Header goes here.(Brad front-end)</h1>
+            <h1>Header goes here.(Brad will style later)</h1>
         </div>
     )
 }
