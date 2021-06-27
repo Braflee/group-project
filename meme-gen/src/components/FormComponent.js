@@ -2,43 +2,38 @@ import React from "react";
 
 function FormComponent(props) {
   return (
-    <main>
-      <form onSubmit={this.handleSubmit}>
+    <div>
+      <form>
+        {/* <form onSubmit={this.handleSubmit}> */}
         <input
           name="topText"
-          value={props.data.topText}
+          value={props.topText}
           onChange={props.handleChange}
           placeholder="Enter text"
         />
-        <div>
-          <img src={props.memeImg.image} />
-        </div>
-
         <input
           name="bottomText"
-          value={props.data.bottomText}
+          value={props.bottomText}
           onChange={props.handleChange}
           placeholder="Enter more text"
         />
         <br />
-        <button>Submit</button>
-        <br />
         <button onClick={props.shuffleButton}>Shuffle</button>
+        {/* <button>Submit</button>
         <br />
-        <button>Edit</button>
         <br />
-        <button>Delete</button>
+        <button onClick={props.handleEdit}>Edit</button>
+        <br />
+      <button onClick={props.handleDelete}>Delete</button> */}
       </form>
-      <div>
-        <ol>{memeArray}</ol>
-      </div>
-    </main>
+      <div>{/* <ol>{memeArray}</ol> */}</div>
+    </div>
   );
 }
 
 export default FormComponent;
 
-// * handleSubmit function for submit button
+// * functions for buttons
 // handleSubmit = (e) => {
 //   e.preventDefault();
 //   this.setState((prevState) => ({
@@ -50,7 +45,8 @@ export default FormComponent;
 //   e.preventDefault();
 //   this.setState((prevState) => ({}));
 // };
-// * Call for FormComponent on Form.js
-{
-  /* <FormComponent key={index.id} data={this.state.data} memeImg={this.state.memeImg} */
-}
+
+// handleDelete = (e) => {
+//   e.preventDefault();
+//   this.setState((prevState) => ({}));
+// };
