@@ -1,0 +1,17 @@
+.imgCont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.randomImg{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    height: 900px;
+    width: 900px;
+    background: no-repeat center center ;
+    background-size: 900px 900px;
+}
