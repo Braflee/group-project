@@ -4,13 +4,13 @@ function FormComponent(props) {
   return (
     <div>
       <form>
-        {/* <form onSubmit={this.handleSubmit}> */}
         <input
           name="topText"
           value={props.topText}
           onChange={props.handleChange}
           placeholder="Enter text"
         />
+        <br/>
         <input
           name="bottomText"
           value={props.bottomText}
@@ -19,14 +19,15 @@ function FormComponent(props) {
         />
         <br />
         <button onClick={props.shuffleButton}>Shuffle</button>
-        {/* <button>Submit</button>
-        <br />
-        <br />
-        <button onClick={props.handleEdit}>Edit</button>
-        <br />
-      <button onClick={props.handleDelete}>Delete</button> */}
       </form>
-      <div>{/* <ol>{memeArray}</ol> */}</div>
+      <div className='imgCont'>
+        <div
+          className='randomImg'
+          style={{ backgroundImage: `url(${props.randomImg})` }}>
+          <h1>{}</h1>
+          <h1>{}</h1>
+        </div>
+      </div>
     </div>
   );
 }
@@ -50,3 +51,9 @@ export default FormComponent;
 //   e.preventDefault();
 //   this.setState((prevState) => ({}));
 // };
+/* <button>Submit</button>
+        <br />
+        <br />
+        <button onClick={props.handleEdit}>Edit</button>
+        <br />
+      <button onClick={props.handleDelete}>Delete</button> */
