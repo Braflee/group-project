@@ -11,7 +11,7 @@ function FormComponent(props) {
           placeholder="Enter text"
         />
         <div>
-          <img src={props.meme.image} />
+          <img src={props.memeImg.image} />
         </div>
 
         <input
@@ -23,42 +23,20 @@ function FormComponent(props) {
         <br />
         <button>Submit</button>
         <br />
-        <button>Refresh</button>
+        <button onClick={props.shuffleButton}>Shuffle</button>
         <br />
         <button>Edit</button>
         <br />
         <button>Delete</button>
       </form>
+      <div>
+        <ol>{memeArray}</ol>
+      </div>
     </main>
   );
 }
 
 export default FormComponent;
-
-// * Alternate form
-{
-  /* <main>
-  <form onSubmit={this.handleSubmit}>
-    <input
-      name="topText"
-      value={props.data.topText}
-      onChange={props.handleChange}
-      placeholder="Enter text"
-    />
-    <br />
-    <button>Submit</button>
-    <br />
-    <button>Refresh</button>
-    <br />
-    <button>Edit</button>
-    <br />
-    <button>Delete</button>
-  </form>
-  <hr />
-  <h2>Your Memes</h2>
-  <ol>{memesArr}</ol>
-</main> */
-}
 
 // * handleSubmit function for submit button
 // handleSubmit = (e) => {
@@ -67,3 +45,12 @@ export default FormComponent;
 //     memesArr: [...prevState.memesArr, this.state],
 //   }));
 // };
+
+// handleEdit = (e) => {
+//   e.preventDefault();
+//   this.setState((prevState) => ({}));
+// };
+// * Call for FormComponent on Form.js
+{
+  /* <FormComponent key={index.id} data={this.state.data} memeImg={this.state.memeImg} */
+}
