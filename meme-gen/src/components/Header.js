@@ -2,8 +2,8 @@ import React from 'react'
 
 function Header() {
     return(
-        <div>
-            <h1>Header goes here.(Brad will style later)</h1>
+        <div className='header'>
+            <p className='headerText'>Hello! Please, meme away to your heart's desire!</p>
         </div>
     )
 }
