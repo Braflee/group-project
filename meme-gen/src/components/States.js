@@ -2,13 +2,12 @@ import React from "react";
 import FormComponent from "./FormComponent";
 
 class States extends React.Component {
-    state = {
-      topText: "",
-      bottomText: "",
-      randomImg: "",
-      memeArray: [],
-    }
-  
+  state = {
+    topText: "",
+    bottomText: "",
+    randomImg: "",
+    memeArray: [],
+  };
 
   componentDidMount() {
     fetch("https://api.imgflip.com/get_memes")
@@ -34,14 +33,36 @@ class States extends React.Component {
     this.setState({ randomImg: randMemeImg });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.setState((prevState) => ({
+      memesArray: [...prevState.memesArray, this.state],
+    }));
+  };
+
+  handleDelete = (e) => {
+    e.preventDefault();
+    this.setState((prevState) => ({
+      memesArray: [...prevState.memeArray, this.state],
+    }));
+  };
+
+  handleEdit = (e) => {
+    e.preventDefault();
+    this.setState((prevState) => [
+      // Do something here
+    ]);
+  };
+
   render() {
     return (
       <div>
         <div>
-          <FormComponent 
-            handleChange={this.handleChange} 
+          <FormComponent
+            handleChange={this.handleChange}
             shuffleButton={this.shuffleButton}
-            {...this.state} />
+            {...this.state}
+          />
         </div>
       </div>
     );
@@ -49,4 +70,3 @@ class States extends React.Component {
 }
 
 export default States;
-
