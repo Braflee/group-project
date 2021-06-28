@@ -10,7 +10,7 @@ function FormComponent(props) {
           onChange={props.handleChange}
           placeholder="Enter text"
         />
-        <br/>
+        <br />
         <input
           name="bottomText"
           value={props.bottomText}
@@ -19,13 +19,17 @@ function FormComponent(props) {
         />
         <br />
         <button onClick={props.shuffleButton}>Shuffle</button>
+        <button onClick={props.handleSubmit}>Submit</button>
+        <button onClick={props.handleDelete}>Delete</button>
+        <button onClick={props.handleEdit}>Edit</button>
       </form>
-      <div className='imgCont'>
+      <div className="imgCont">
         <div
-          className='randomImg'
-          style={{ backgroundImage: `url(${props.randomImg})` }}>
-          <h1>{}</h1>
-          <h1>{}</h1>
+          className="randomImg"
+          style={{ backgroundImage: `url(${props.randomImg})` }}
+        >
+          <h1>{props.topText}</h1>
+          <h1>{props.bottomText}</h1>
         </div>
       </div>
     </div>
@@ -33,27 +37,3 @@ function FormComponent(props) {
 }
 
 export default FormComponent;
-
-// * functions for buttons
-// handleSubmit = (e) => {
-//   e.preventDefault();
-//   this.setState((prevState) => ({
-//     memesArr: [...prevState.memesArr, this.state],
-//   }));
-// };
-
-// handleEdit = (e) => {
-//   e.preventDefault();
-//   this.setState((prevState) => ({}));
-// };
-
-// handleDelete = (e) => {
-//   e.preventDefault();
-//   this.setState((prevState) => ({}));
-// };
-/* <button>Submit</button>
-        <br />
-        <br />
-        <button onClick={props.handleEdit}>Edit</button>
-        <br />
-      <button onClick={props.handleDelete}>Delete</button> */
