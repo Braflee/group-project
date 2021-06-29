@@ -18,10 +18,10 @@ function FormComponent(props) {
           placeholder="Enter more text"
         />
         <br />
-        <button onClick={props.shuffleButton}>Shuffle</button>
-        <button onClick={props.handleSubmit}>Submit</button>
-        <button onClick={props.handleDelete}>Delete</button>
-        <button onClick={props.handleEdit}>Edit</button>
+        <button onClick={props.shuffleButton}>Refresh Meme Image</button>
+        <button type="submit" onSubmit={props.handleSubmit}>
+          Submit
+        </button>
       </form>
       <div className="imgCont">
         <div
