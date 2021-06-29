@@ -1,5 +1,6 @@
 import React from "react";
 import FormComponent from "./FormComponent";
+import Memes from "./Memes";
 
 class States extends React.Component {
   state = {
@@ -35,15 +36,26 @@ class States extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Meme submitted!");
+
+    const memeList = {
+      topText: this.state.topText,
+      bottomText: this.state.bottomText,
+      randMemeImg: this.state.url,
+    };
+
     this.setState((prevState) => ({
-      memesArray: [...prevState.memesArray, this.state],
+      memeArray: [...prevState, memeList],
+      topText: "",
+      bottomText: "",
+      randMemeImg: "",
     }));
   };
 
   handleDelete = (e) => {
     e.preventDefault();
     this.setState((prevState) => ({
-      memesArray: [...prevState.memeArray, this.state],
+      memeArray: [...prevState, this.state],
     }));
   };
 
@@ -62,6 +74,12 @@ class States extends React.Component {
             handleChange={this.handleChange}
             shuffleButton={this.shuffleButton}
             {...this.state}
+          />
+        </div>
+        <div>
+          <Memes
+            handleDelete={this.handleDelete}
+            handleEdit={this.handleEdit}
           />
         </div>
       </div>
