@@ -1,13 +1,14 @@
-import React from "react";
+import React, {Component} from "react";
 import FormComponent from "./FormComponent";
 import Memes from "./Memes";
 
-class States extends React.Component {
+class States extends Component {
   state = {
     topText: "",
     bottomText: "",
-    randomImg: "",
+    imgUrl: "",
     memeArray: [],
+    userMemes: []
   };
 
   componentDidMount() {
@@ -15,9 +16,12 @@ class States extends React.Component {
       .then((res) => res.json())
       .then((res) => {
         const { memes } = res.data;
-        console.log(memes);
         this.setState({ memeArray: memes });
+        const randomIndex = Math.floor(Math.random() * this.state.memeArray.length);
+        const randMemeImg = this.state.memeArray[randomIndex].url;
+        this.setState({ imgUrl: randMemeImg });
       });
+    
   }
 
   handleChange = (e) => {
@@ -29,27 +33,26 @@ class States extends React.Component {
 
   shuffleButton = (e) => {
     e.preventDefault();
+    console.log('test');
     const randomIndex = Math.floor(Math.random() * this.state.memeArray.length);
     const randMemeImg = this.state.memeArray[randomIndex].url;
-    this.setState({ randomImg: randMemeImg });
+    this.setState({ imgUrl: randMemeImg });
   };
 
   handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Meme submitted!");
-
-    const memeList = {
-      topText: this.state.topText,
-      bottomText: this.state.bottomText,
-      randMemeImg: this.state.url,
-    };
-
-    this.setState((prevState) => ({
-      memeArray: [...prevState, memeList],
-      topText: "",
-      bottomText: "",
-      randMemeImg: "",
-    }));
+    e.preventDefault()
+    this.setState((prevState) => {
+        const memeList = {
+          topText: this.state.topText,
+          bottomText: this.state.bottomText,
+          imgUrl: this.state.imgUrl,
+        };
+        return {
+          topText: "",
+          bottomText: "",
+          userMemes: [...prevState.userMemes, memeList ],
+        }
+      });
   };
 
   handleDelete = (e) => {
@@ -67,20 +70,19 @@ class States extends React.Component {
   };
 
   render() {
+    const memeCompile = this.state.userMemes.map(item => <Memes key={item.topText} item={item} url={item.imgUrl}/>)
     return (
       <div>
         <div>
           <FormComponent
             handleChange={this.handleChange}
             shuffleButton={this.shuffleButton}
+            handleSubmit={this.handleSubmit}
             {...this.state}
           />
         </div>
         <div>
-          <Memes
-            handleDelete={this.handleDelete}
-            handleEdit={this.handleEdit}
-          />
+          {memeCompile}
         </div>
       </div>
     );
