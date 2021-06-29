@@ -5,8 +5,12 @@ export default function Memes(props) {
   return (
     <div>
       <div className='userMeme' style={{backgroundImage: `url(${props.url})`}}>
-        <p>{props.item.topText}</p>
-        <p>{props.item.bottomText}</p>
+        <div className='memeTopText'>
+          <p>{props.item.topText}</p>
+        </div>
+        <div className='memeBottomText'>
+          <p>{props.item.bottomText}</p>
+        </div>
       </div>
       <button onClick={props.handleDelete}>Delete</button>
       <button onClick={props.handleEdit}>Edit</button>
