@@ -1,14 +1,15 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import FormComponent from "./FormComponent";
 import Memes from "./Memes";
+import { v4 as uuid } from "uuid"; // <npm install uuid> to your project to access IDs
 
 class States extends Component {
   state = {
     topText: "",
     bottomText: "",
-    imgUrl: "",
-    memeArray: [],
-    userMemes: []
+    memeArray: [], // Stores initial load from API
+    imgUrl: {}, // Stores selected meme
+    userMemes: [], // Stores memes to list
   };
 
   componentDidMount() {
@@ -17,11 +18,8 @@ class States extends Component {
       .then((res) => {
         const { memes } = res.data;
         this.setState({ memeArray: memes });
-        const randomIndex = Math.floor(Math.random() * this.state.memeArray.length);
-        const randMemeImg = this.state.memeArray[randomIndex].url;
-        this.setState({ imgUrl: randMemeImg });
+        this.shuffleButton(); // DRY - using existing function to get a random image every initial load
       });
-    
   }
 
   handleChange = (e) => {
@@ -31,46 +29,47 @@ class States extends Component {
     });
   };
 
-  shuffleButton = (e) => {
-    e.preventDefault();
-    console.log('test');
+  shuffleButton = () => {
+    console.log(this.state.imgUrl);
     const randomIndex = Math.floor(Math.random() * this.state.memeArray.length);
-    const randMemeImg = this.state.memeArray[randomIndex].url;
+    const randMemeImg = this.state.memeArray[randomIndex];
     this.setState({ imgUrl: randMemeImg });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault()
+  handleSubmit = (url) => {
+    // Passing url from onClick event and target
+    const memeList = {
+      // Declaring variable outside of setState as setState is only for handling state
+      topText: this.state.topText,
+      bottomText: this.state.bottomText,
+      imgUrl: url,
+      id: uuid(), // Generating a unique ID for managing memes.
+    };
     this.setState((prevState) => {
-        const memeList = {
-          topText: this.state.topText,
-          bottomText: this.state.bottomText,
-          imgUrl: this.state.imgUrl,
-        };
-        return {
-          topText: "",
-          bottomText: "",
-          userMemes: [...prevState.userMemes, memeList ],
-        }
-      });
+      return {
+        topText: "",
+        bottomText: "",
+        userMemes: [...prevState.userMemes, memeList],
+      };
+    });
   };
 
-  handleDelete = (e) => {
-    e.preventDefault();
-    this.setState((prevState) => ({
-      memeArray: [...prevState, this.state],
-    }));
+  handleDelete = (id) => {
+    const filterArr = this.state.userMemes.filter((meme) => meme.id !== id);
+    this.setState({ userMemes: filterArr });
   };
 
-  handleEdit = (e) => {
-    e.preventDefault();
-    this.setState((prevState) => [
-      // Do something here
-    ]);
-  };
+  // handleEdit = (e) => {
+  //   e.preventDefault();
+  //   this.setState((prevState) => [
+  //     // Do something here
+  //   ]);
+  // };
 
   render() {
-    const memeCompile = this.state.userMemes.map(item => <Memes key={item.topText} item={item} url={item.imgUrl}/>)
+    const memeCompile = this.state.userMemes.map((item) => (
+      <Memes key={item.id} item={item} handleDelete={this.handleDelete} />
+    ));
     return (
       <div>
         <div>
@@ -81,9 +80,7 @@ class States extends Component {
             {...this.state}
           />
         </div>
-        <div>
-          {memeCompile}
-        </div>
+        <div>{memeCompile}</div>
       </div>
     );
   }
