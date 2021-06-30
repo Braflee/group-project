@@ -18,20 +18,34 @@ function FormComponent(props) {
           placeholder="Enter more text"
         />
         <br />
-        <button onClick={props.handleSubmit}>
+        <button
+          // Anonymous (helper) function to pass URL
+          onClick={(e) => {
+            e.preventDefault();
+            props.handleSubmit(props.imgUrl.url);
+          }}
+        >
           Submit
         </button>
       </form>
       <div className="imgCont">
-        <button onClick={props.shuffleButton}>Refresh Meme Image</button>
+        <button
+          // Anonymous (helper) function to smoothly pass target
+          onClick={(e) => {
+            e.preventDefault();
+            props.shuffleButton();
+          }}
+        >
+          Refresh Meme Image
+        </button>
         <div
           className="imgUrl"
-          style={{ backgroundImage: `url(${props.imgUrl})` }}
+          style={{ backgroundImage: `url(${props.imgUrl.url})` }}
         >
-          <div className='formTopText'>
+          <div className="formTopText">
             <h1>{props.topText}</h1>
           </div>
-          <div className='formBottomText'>
+          <div className="formBottomText">
             <h1>{props.bottomText}</h1>
           </div>
         </div>
