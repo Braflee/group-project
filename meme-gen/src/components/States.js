@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import Memes from "./Memes";
+import Meme from "./Meme";
 import { v4 as uuid } from "uuid"; 
 
 class States extends Component {
   state = {
     topText: "",
     bottomText: "",
-    isEdit: false,
     memeArray: [], 
     imgUrl: {}, 
     userMemes: [], 
@@ -29,6 +28,18 @@ class States extends Component {
     });
   };
 
+  handleEdit = (e, id, edits) => {
+    e.preventDefault()
+    let selectedMeme = this.state.userMemes.find(meme => meme.id === id)
+    selectedMeme.topText = edits.topText
+    selectedMeme.bottomText = edits.bottomText
+    selectedMeme.imgUrl = edits.imgUrl
+
+    let newMemes = this.state.selectedMeme.map(meme => meme.id === id? selectedMeme: meme)
+    return this.setState({userMemes: newMemes})
+
+  }
+
   shuffleButton = () => {
     const randomIndex = Math.floor(Math.random() * this.state.memeArray.length);
     const randMemeImg = this.state.memeArray[randomIndex];
@@ -40,7 +51,6 @@ class States extends Component {
     const memeList = {
       topText: this.state.topText,
       bottomText: this.state.bottomText,
-      isEdit: this.state.isEdit,
       imgUrl: this.state.imgUrl.url,
       id: uuid(), 
     };
@@ -58,19 +68,9 @@ class States extends Component {
     this.setState({ userMemes: filterArr });
   };
 
-  toggleEdit = () => {
-    this.setState(prevState => {
-      return {
-          userMemes: {
-            isEdit: !prevState.isEdit
-          }
-        }
-    })
-  }
-
   render() {
     const memeCompile = this.state.userMemes.map(meme => 
-    <Memes key={meme.id} meme={meme} isEdit={meme.isEdit} handleDelete={this.handleDelete} toggleEdit={this.toggleEdit} />)
+    <Meme key={meme.id} meme={meme} handleDelete={this.handleDelete} handleEdit={this.handleEdit} />)
     console.log({memeCompile});
     return (
       <div className='genCont'>
