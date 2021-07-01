@@ -5,7 +5,13 @@ body {
     background-image: url('https://images.unsplash.com/photo-1624628639856-100bf817fd35?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1867&q=80');
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-position: center;
     font-family: 'Inconsolata', sans-serif;
+}
+
+.genCont {
+    display: flex;
+    flex-direction: row;
 }
 
 .appCont {
@@ -47,6 +53,8 @@ button {
     border: none;
     border-radius: 10px;
     box-shadow: 10px 5px 5px #36454f;
+    font-family: 'Inconsolata', sans-serif;
+    font-weight: 900;
 }
 
 .imgDisp {
@@ -61,8 +69,8 @@ button {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 700px;
-    height: 700px;
+    width: 600px;
+    height: 600px;
     backdrop-filter: blur(10px);
     border-radius: 10px;
     box-shadow: 10px 5px 5px #36454f;
@@ -140,7 +148,7 @@ input:focus {
 }
 
 .memeCont {
-    margin: 5px;
+    margin: 10px;
     display: flex;
     flex-direction: column;
     width: 300px;

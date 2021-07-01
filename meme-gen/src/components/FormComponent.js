@@ -3,31 +3,31 @@ import React from "react";
 function FormComponent(props) {
   return (
     <div className='formDisp'>
-      <form>
-        <input
-          name="topText"
-          value={props.topText}
-          onChange={props.handleChange}
-          placeholder="Top"
-        />
-        <br />
-        <input
-          name="bottomText"
-          value={props.bottomText}
-          onChange={props.handleChange}
-          placeholder="Bottom"
-        />
-        <br />
-        <button className='submitBtn'
-          // Anonymous (helper) function to pass URL
-          onClick={(e) => {
-            e.preventDefault();
-            props.handleSubmit(props.imgUrl.url);
-          }}
-        >
-          Submit
-        </button>
-      </form>
+        <form>
+          <input
+            name="topText"
+            value={props.topText}
+            onChange={props.handleChange}
+            placeholder="Top"
+          />
+          <br />
+          <input
+            name="bottomText"
+            value={props.bottomText}
+            onChange={props.handleChange}
+            placeholder="Bottom"
+          />
+          <br />
+          <button className='submitBtn'
+            // Anonymous (helper) function to pass URL
+            onClick={(e) => {
+              e.preventDefault();
+              props.handleSubmit(props.imgUrl.url);
+            }}
+          >
+            Submit
+          </button>
+        </form>
       <div className='imgDisp'>
         <div className="imgCont">
           <button className='refreshBtn'
