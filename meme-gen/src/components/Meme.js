@@ -1,6 +1,6 @@
-import React from "react";
+import React, {Component} from "react";
 
-class Meme extends React.Component {
+class Meme extends Component {
   state = {
     isEdit: false,
     topText: "",
@@ -37,7 +37,7 @@ class Meme extends React.Component {
       <div>
         {this.state.isEdit? 
           <div>
-              <form onSubmit={() => handleEdit( id, {topText: this.state.topText, bottomText: this.state.bottomText, imgUrl})}>
+              <form onSubmit={() => handleEdit(id, {topText: this.state.topText, bottomText: this.state.bottomText, imgUrl})}>
             <input
               name="topText"
               value={this.state.topText}
@@ -52,9 +52,13 @@ class Meme extends React.Component {
               placeholder="Bottom"
             />
             <br />
-            <button className='submitBtn' onClick={this.handleSubmit}>Submit</button>
+            <button className='submitBtn' onClick={this.props.handleSubmit}>Submit</button>
           </form>
             <button onClick={() => this.toggleEdit()}>Cancel</button>
+            <div className="userMeme" style={{ backgroundImage: `url(${imgUrl})` }}>
+              <div className='formTopText'><p>{this.state.topText}</p></div>
+              <div className='formBottomText'><p>{this.state.bottomText}</p></div>
+            </div>
           </div>
           :
           <div className='memeCont'>

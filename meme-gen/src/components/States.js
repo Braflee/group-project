@@ -70,7 +70,7 @@ class States extends Component {
 
   render() {
     const memeCompile = this.state.userMemes.map(meme => 
-    <Meme key={meme.id} meme={meme} handleDelete={this.handleDelete} handleEdit={this.handleEdit} />)
+    <Meme key={meme.id} meme={meme} handleDelete={this.handleDelete} handleEdit={this.handleEdit} handleSubmit={this.handleSubmit} />)
     console.log({memeCompile});
     return (
       <div className='genCont'>
