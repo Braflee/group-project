@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import FormComponent from "./FormComponent";
 import Memes from "./Memes";
-import { v4 as uuid } from "uuid"; // <npm install uuid> to your project to access IDs
+import { v4 as uuid } from "uuid"; 
 
 class States extends Component {
   state = {
     topText: "",
     bottomText: "",
-    memeArray: [], // Stores initial load from API
-    imgUrl: {}, // Stores selected meme
-    userMemes: [], // Stores memes to list
+    isEdit: false,
+    memeArray: [], 
+    imgUrl: {}, 
+    userMemes: [], 
   };
 
   componentDidMount() {
@@ -30,20 +30,19 @@ class States extends Component {
   };
 
   shuffleButton = () => {
-    console.log(this.state.imgUrl);
     const randomIndex = Math.floor(Math.random() * this.state.memeArray.length);
     const randMemeImg = this.state.memeArray[randomIndex];
     this.setState({ imgUrl: randMemeImg });
   };
 
-  handleSubmit = (url) => {
-    // Passing url from onClick event and target
+  handleSubmit = (e) => {
+    e.preventDefault()
     const memeList = {
-      // Declaring variable outside of setState as setState is only for handling state
       topText: this.state.topText,
       bottomText: this.state.bottomText,
-      imgUrl: url,
-      id: uuid(), // Generating a unique ID for managing memes.
+      isEdit: this.state.isEdit,
+      imgUrl: this.state.imgUrl.url,
+      id: uuid(), 
     };
     this.setState((prevState) => {
       return {
@@ -59,26 +58,53 @@ class States extends Component {
     this.setState({ userMemes: filterArr });
   };
 
-  // handleEdit = (e) => {
-  //   e.preventDefault();
-  //   this.setState((prevState) => [
-  //     // Do something here
-  //   ]);
-  // };
+  toggleEdit = () => {
+    this.setState(prevState => {
+      return {
+          userMemes: {
+            isEdit: !prevState.isEdit
+          }
+        }
+    })
+  }
 
   render() {
-    const memeCompile = this.state.userMemes.map((item) => (
-      <Memes key={item.id} item={item} handleDelete={this.handleDelete} />
-    ));
+    const memeCompile = this.state.userMemes.map(meme => 
+    <Memes key={meme.id} meme={meme} isEdit={meme.isEdit} handleDelete={this.handleDelete} toggleEdit={this.toggleEdit} />)
+    console.log({memeCompile});
     return (
       <div className='genCont'>
-        <div>
-          <FormComponent
-            handleChange={this.handleChange}
-            shuffleButton={this.shuffleButton}
-            handleSubmit={this.handleSubmit}
-            {...this.state}
-          />
+        <div className='formDisp'>
+          <form>
+            <input
+              name="topText"
+              value={this.state.topText}
+              onChange={this.handleChange}
+              placeholder="Top"
+            />
+            <br />
+            <input
+              name="bottomText"
+              value={this.state.bottomText}
+              onChange={this.handleChange}
+              placeholder="Bottom"
+            />
+            <br />
+            <button className='submitBtn' onClick={this.handleSubmit}>Submit</button>
+          </form>
+          <div className='imgDisp'>
+            <div className="imgCont">
+              <button className='refreshBtn'onClick={(e) => {e.preventDefault();this.shuffleButton();}}>Refresh</button>
+              <div className="imgUrl"style={{ backgroundImage: `url(${this.state.imgUrl.url})` }}>
+                <div className="formTopText">
+                  <h1>{this.state.topText}</h1>
+                </div>
+                <div className="formBottomText">
+                  <h1>{this.state.bottomText}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className='memeList'>{memeCompile}</div>
       </div>
