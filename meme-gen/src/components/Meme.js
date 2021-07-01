@@ -1,14 +1,14 @@
 import React from "react";
 
 class Meme extends React.Component {
-    state = {
-      isEdit: false,
-      topText: "",
-      bottomText: "",
-      imgUrl: ""
-    }
+  state = {
+    isEdit: false,
+    topText: "",
+    bottomText: "",
+    imgUrl: ""
+  }
 
-    toggleEdit = () => {
+  toggleEdit = () => {
     this.setState(prevState => {
       return { 
             isEdit: !prevState.isEdit
@@ -31,13 +31,13 @@ class Meme extends React.Component {
 
   // }
 
-    render(){
-      const { imgUrl, topText, bottomText, id, handleEdit } = this.props.meme; // Deconstructing
-      return (
-        <div>
-          {this.state.isEdit? 
-            <div>
-              <form onSubmit={(e) => {e.preventDefault(); handleEdit( id, {topText: this.state.topText, bottomText: this.state.bottomText, imgUrl})}}>
+  render(){
+    const { imgUrl, topText, bottomText, id, handleEdit } = this.props.meme; // Deconstructing
+    return (
+      <div>
+        {this.state.isEdit? 
+          <div>
+              <form onSubmit={() => handleEdit( id, {topText: this.state.topText, bottomText: this.state.bottomText, imgUrl})}>
             <input
               name="topText"
               value={this.state.topText}
@@ -53,25 +53,25 @@ class Meme extends React.Component {
             />
             <br />
             <button className='submitBtn' onClick={this.handleSubmit}>Submit</button>
-            </form>
+          </form>
             <button onClick={() => this.toggleEdit()}>Cancel</button>
           </div>
-            :
-            <div className='memeCont'>
-              <div className="userMeme" style={{ backgroundImage: `url(${imgUrl})` }}>
-                <div className="memeTopText">
-                  <p>{topText}</p>
-                </div>
-                <div className="memeBottomText">
-                  <p>{bottomText}</p>
-                </div>
+          :
+          <div className='memeCont'>
+            <div className="userMeme" style={{ backgroundImage: `url(${imgUrl})` }}>
+              <div className="memeTopText">
+                <p>{topText}</p>
               </div>
-              <button className='deleteBtn' onClick={(e) => {e.preventDefault();this.props.handleDelete(id);}}>Delete</button>
-              <button className='editBtn' onClick={() => this.toggleEdit()}>Edit</button>
+              <div className="memeBottomText">
+                <p>{bottomText}</p>
+              </div>
             </div>
-          }
-        </div>
-      );
-    }
+            <button className='deleteBtn' onClick={(e) => {e.preventDefault();this.props.handleDelete(id);}}>Delete</button>
+            <button className='editBtn' onClick={() => this.toggleEdit()}>Edit</button>
+          </div>
+        }
+      </div>
+    );
+  }
 }
 export default Meme
