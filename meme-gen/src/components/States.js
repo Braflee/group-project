@@ -80,7 +80,7 @@ class States extends Component {
             {...this.state}
           />
         </div>
-        <div>{memeCompile}</div>
+        <div className='memeList'>{memeCompile}</div>
       </div>
     );
   }
