@@ -71,7 +71,7 @@ class States extends Component {
       <Memes key={item.id} item={item} handleDelete={this.handleDelete} />
     ));
     return (
-      <div>
+      <div className='genCont'>
         <div>
           <FormComponent
             handleChange={this.handleChange}
