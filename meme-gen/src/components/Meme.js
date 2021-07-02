@@ -1,21 +1,19 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 class Meme extends Component {
   state = {
     isEdit: false,
-    topText: "",
-    bottomText: "",
-    imgUrl: ""
-  }
+    topEdit: "",
+    bottomEdit: "",
+  };
 
   toggleEdit = () => {
-    this.setState(prevState => {
-      return { 
-            isEdit: !prevState.isEdit
-          
-        }
-    })
-  }
+    this.setState((prevState) => {
+      return {
+        isEdit: !prevState.isEdit,
+      };
+    });
+  };
 
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,45 +22,60 @@ class Meme extends Component {
     });
   };
 
-
-  // handleEdit(e) {
-  //   e.preventDefault()
-  //   const edits =
-
-  // }
-
-  render(){
-    const { imgUrl, topText, bottomText, id, handleEdit } = this.props.meme; // Deconstructing
+  render() {
+    const { imgUrl, topText, bottomText, id } = this.props.meme;
+    const { handleEdit, handleDelete, handleSubmit } = this.props;
     return (
       <div>
-        {this.state.isEdit? 
+        {this.state.isEdit ? (
           <div>
-              <form onSubmit={() => handleEdit(id, {topText: this.state.topText, bottomText: this.state.bottomText, imgUrl})}>
-            <input
-              name="topText"
-              value={this.state.topText}
-              onChange={this.handleChange}
-              placeholder="Top"
-            />
-            <br />
-            <input
-              name="bottomText"
-              value={this.state.bottomText}
-              onChange={this.handleChange}
-              placeholder="Bottom"
-            />
-            <br />
-            <button className='submitBtn' onClick={this.props.handleSubmit}>Submit</button>
-          </form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleEdit(id, {
+                  topEdit: this.state.topEdit,
+                  bottomEdit: this.state.bottomEdit,
+                });
+                this.toggleEdit();
+              }}
+            >
+              <input
+                name="topEdit"
+                value={this.state.topEdit}
+                onChange={this.handleChange}
+                placeholder="Top"
+              />
+              <br />
+              <input
+                name="bottomEdit"
+                value={this.state.bottomEdit}
+                onChange={this.handleChange}
+                placeholder="Bottom"
+              />
+              <br />
+              <button className="submitBtn" type="submit">
+                Commit
+              </button>
+            </form>
             <button onClick={() => this.toggleEdit()}>Cancel</button>
-            <div className="userMeme" style={{ backgroundImage: `url(${imgUrl})` }}>
-              <div className='formTopText'><p>{this.state.topText}</p></div>
-              <div className='formBottomText'><p>{this.state.bottomText}</p></div>
+            <div
+              className="userMeme"
+              style={{ backgroundImage: `url(${imgUrl})` }}
+            >
+              <div className="formTopText">
+                <p>{this.state.topEdit}</p>
+              </div>
+              <div className="formBottomText">
+                <p>{this.state.bottomEdit}</p>
+              </div>
             </div>
           </div>
-          :
-          <div className='memeCont'>
-            <div className="userMeme" style={{ backgroundImage: `url(${imgUrl})` }}>
+        ) : (
+          <div className="memeCont">
+            <div
+              className="userMeme"
+              style={{ backgroundImage: `url(${imgUrl})` }}
+            >
               <div className="memeTopText">
                 <p>{topText}</p>
               </div>
@@ -70,12 +83,22 @@ class Meme extends Component {
                 <p>{bottomText}</p>
               </div>
             </div>
-            <button className='deleteBtn' onClick={(e) => {e.preventDefault();this.props.handleDelete(id);}}>Delete</button>
-            <button className='editBtn' onClick={() => this.toggleEdit()}>Edit</button>
+            <button
+              className="deleteBtn"
+              onClick={(e) => {
+                e.preventDefault();
+                handleDelete(id);
+              }}
+            >
+              Delete
+            </button>
+            <button className="editBtn" onClick={() => this.toggleEdit()}>
+              Edit
+            </button>
           </div>
-        }
+        )}
       </div>
     );
   }
 }
-export default Meme
+export default Meme;
