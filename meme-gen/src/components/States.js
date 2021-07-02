@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Meme from "./Meme";
-import { v4 as uuid } from "uuid"; 
+import { v4 as uuid } from "uuid";
 
 class States extends Component {
   state = {
     topText: "",
     bottomText: "",
-    memeArray: [], 
-    imgUrl: {}, 
-    userMemes: [], 
+    memeArray: [],
+    imgUrl: {},
+    userMemes: [],
   };
 
   componentDidMount() {
@@ -17,7 +17,7 @@ class States extends Component {
       .then((res) => {
         const { memes } = res.data;
         this.setState({ memeArray: memes });
-        this.shuffleButton(); // DRY - using existing function to get a random image every initial load
+        this.shuffleButton();
       });
   }
 
@@ -28,17 +28,24 @@ class States extends Component {
     });
   };
 
-  handleEdit = (e, id, edits) => {
-    e.preventDefault()
-    let selectedMeme = this.state.userMemes.find(meme => meme.id === id)
-    selectedMeme.topText = edits.topText
-    selectedMeme.bottomText = edits.bottomText
-    selectedMeme.imgUrl = edits.imgUrl
+  handleEdit = (id, edits) => {
+    let selectedMeme = this.state.userMemes.find((meme) => meme.id === id);
+    selectedMeme.topText = edits.topEdit;
+    selectedMeme.bottomText = edits.bottomEdit;
+    // selectedMeme.imgUrl = edits.imgUrl;
 
-    let newMemes = this.state.selectedMeme.map(meme => meme.id === id? selectedMeme: meme)
-    return this.setState({userMemes: newMemes})
-
-  }
+    // let start = this.state.userMemes.findIndex((meme) => meme.id === id);
+    // let testArr = this.state.userMemes;
+    // let newArr = testArr.splice(start, 1, selectedMeme);
+    // this.setState((prevState) => {
+    //   return {
+    //     userMemes: [...prevState.userMemes, newArr],
+    //   };
+    // });
+    // console.log(newArr);
+    // console.log(testArr);
+    console.log(this.state.userMemes);
+  };
 
   shuffleButton = () => {
     const randomIndex = Math.floor(Math.random() * this.state.memeArray.length);
@@ -47,12 +54,12 @@ class States extends Component {
   };
 
   handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const memeList = {
       topText: this.state.topText,
       bottomText: this.state.bottomText,
       imgUrl: this.state.imgUrl.url,
-      id: uuid(), 
+      id: uuid(),
     };
     this.setState((prevState) => {
       return {
@@ -69,12 +76,18 @@ class States extends Component {
   };
 
   render() {
-    const memeCompile = this.state.userMemes.map(meme => 
-    <Meme key={meme.id} meme={meme} handleDelete={this.handleDelete} handleEdit={this.handleEdit} handleSubmit={this.handleSubmit} />)
-    console.log({memeCompile});
+    const memeCompile = this.state.userMemes.map((meme) => (
+      <Meme
+        key={meme.id}
+        meme={meme}
+        handleDelete={this.handleDelete}
+        handleEdit={this.handleEdit}
+        handleSubmit={this.handleSubmit}
+      />
+    ));
     return (
-      <div className='genCont'>
-        <div className='formDisp'>
+      <div className="genCont">
+        <div className="formDisp">
           <form>
             <input
               name="topText"
@@ -90,12 +103,25 @@ class States extends Component {
               placeholder="Bottom"
             />
             <br />
-            <button className='submitBtn' onClick={this.handleSubmit}>Submit</button>
+            <button className="submitBtn" onClick={this.handleSubmit}>
+              Submit
+            </button>
           </form>
-          <div className='imgDisp'>
+          <div className="imgDisp">
             <div className="imgCont">
-              <button className='refreshBtn'onClick={(e) => {e.preventDefault();this.shuffleButton();}}>Refresh</button>
-              <div className="imgUrl"style={{ backgroundImage: `url(${this.state.imgUrl.url})` }}>
+              <button
+                className="refreshBtn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  this.shuffleButton();
+                }}
+              >
+                Refresh
+              </button>
+              <div
+                className="imgUrl"
+                style={{ backgroundImage: `url(${this.state.imgUrl.url})` }}
+              >
                 <div className="formTopText">
                   <h1>{this.state.topText}</h1>
                 </div>
@@ -106,7 +132,7 @@ class States extends Component {
             </div>
           </div>
         </div>
-        <div className='memeList'>{memeCompile}</div>
+        <div className="memeList">{memeCompile}</div>
       </div>
     );
   }
