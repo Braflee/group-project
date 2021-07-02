@@ -29,22 +29,10 @@ class States extends Component {
   };
 
   handleEdit = (id, edits) => {
-    let selectedMeme = this.state.userMemes.find((meme) => meme.id === id);
-    selectedMeme.topText = edits.topEdit;
-    selectedMeme.bottomText = edits.bottomEdit;
-    // selectedMeme.imgUrl = edits.imgUrl;
-
-    // let start = this.state.userMemes.findIndex((meme) => meme.id === id);
-    // let testArr = this.state.userMemes;
-    // let newArr = testArr.splice(start, 1, selectedMeme);
-    // this.setState((prevState) => {
-    //   return {
-    //     userMemes: [...prevState.userMemes, newArr],
-    //   };
-    // });
-    // console.log(newArr);
-    // console.log(testArr);
-    console.log(this.state.userMemes);
+    let newArr = this.state.userMemes.map((meme) =>
+      meme.id === id ? { ...meme, ...edits } : meme
+    );
+    this.setState({ userMemes: [...newArr] });
   };
 
   shuffleButton = () => {
