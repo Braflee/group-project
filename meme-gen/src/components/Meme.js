@@ -33,8 +33,8 @@ class Meme extends Component {
               onSubmit={(e) => {
                 e.preventDefault();
                 handleEdit(id, {
-                  topEdit: this.state.topEdit,
-                  bottomEdit: this.state.bottomEdit,
+                  topText: this.state.topEdit,
+                  bottomText: this.state.bottomEdit,
                 });
                 this.toggleEdit();
               }}
